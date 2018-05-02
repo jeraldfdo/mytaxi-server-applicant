@@ -1,0 +1,3 @@
+spring:
+  application:
+    name: mytaxi_server_applicant_test

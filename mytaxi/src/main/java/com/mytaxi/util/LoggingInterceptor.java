@@ -2,15 +2,13 @@ package com.mytaxi.util;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.juli.logging.Log;
-import org.apache.juli.logging.LogFactory;
+
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+@Slf4j
 public class LoggingInterceptor extends HandlerInterceptorAdapter
 {
-
-    private static final Log LOG = LogFactory.getLog(LoggingInterceptor.class);
-
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception
@@ -23,13 +21,12 @@ public class LoggingInterceptor extends HandlerInterceptorAdapter
 
         if (ex != null)
         {
-            LoggingInterceptor.LOG.error(logMessage.toString(), ex);
+            log.error(logMessage.toString(), ex);
         }
         else
         {
-            LoggingInterceptor.LOG.info(logMessage.toString());
+            log.info(logMessage.toString());
         }
-
     }
 
 }

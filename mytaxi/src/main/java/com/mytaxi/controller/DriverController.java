@@ -1,14 +1,17 @@
 package com.mytaxi.controller;
 
-import com.mytaxi.controller.mapper.DriverMapper;
-import com.mytaxi.datatransferobject.DriverDTO;
-import com.mytaxi.domainobject.DriverDO;
-import com.mytaxi.domainvalue.OnlineStatus;
+import com.mytaxi.datatransferobject.CarDto;
+import com.mytaxi.exception.CarAlreadyInUseException;
+import com.mytaxi.facade.DriverFacade;
+import com.mytaxi.datatransferobject.DriverDto;
+import com.mytaxi.domain.OnlineStatus;
 import com.mytaxi.exception.ConstraintsViolationException;
 import com.mytaxi.exception.EntityNotFoundException;
-import com.mytaxi.service.driver.DriverService;
+
 import java.util.List;
+import java.util.Map;
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,61 +25,72 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import static org.apache.commons.collections.MapUtils.*;
+
 /**
  * All operations with a driver will be routed by this controller.
- * <p/>
+ *
+ * @author jeraldfdo
  */
 @RestController
 @RequestMapping("v1/drivers")
-public class DriverController
-{
-
-    private final DriverService driverService;
-
+public class DriverController {
 
     @Autowired
-    public DriverController(final DriverService driverService)
-    {
-        this.driverService = driverService;
+    private DriverFacade driverFacade;
+
+    @PostMapping("/select")
+    public DriverDto selectCarByDriver(@RequestParam long driverId, @RequestParam long carId) throws EntityNotFoundException,
+            CarAlreadyInUseException {
+
+        return driverFacade.selectCarByDriver(driverId, carId);
     }
 
+    @DeleteMapping("/deselect")
+    public void deSelectCarByDriver(@RequestParam long driverId, @RequestParam long carId) throws EntityNotFoundException,
+            CarAlreadyInUseException {
+        driverFacade.deSelectCarByDriver(driverId, carId);
+    }
 
     @GetMapping("/{driverId}")
-    public DriverDTO getDriver(@Valid @PathVariable long driverId) throws EntityNotFoundException
-    {
-        return DriverMapper.makeDriverDTO(driverService.find(driverId));
+    public DriverDto getDriver(@Valid @PathVariable long driverId) throws EntityNotFoundException {
+        return driverFacade.findByDriverId(driverId);
     }
-
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public DriverDTO createDriver(@Valid @RequestBody DriverDTO driverDTO) throws ConstraintsViolationException
-    {
-        DriverDO driverDO = DriverMapper.makeDriverDO(driverDTO);
-        return DriverMapper.makeDriverDTO(driverService.create(driverDO));
+    public DriverDto createDriver(@Valid @RequestBody DriverDto driverDto) throws ConstraintsViolationException {
+        return driverFacade.create(driverDto);
     }
-
 
     @DeleteMapping("/{driverId}")
-    public void deleteDriver(@Valid @PathVariable long driverId) throws EntityNotFoundException
-    {
-        driverService.delete(driverId);
+    public void deleteDriver(@Valid @PathVariable long driverId) throws EntityNotFoundException {
+        driverFacade.delete(driverId);
     }
-
 
     @PutMapping("/{driverId}")
     public void updateLocation(
-        @Valid @PathVariable long driverId, @RequestParam double longitude, @RequestParam double latitude)
-        throws ConstraintsViolationException, EntityNotFoundException
-    {
-        driverService.updateLocation(driverId, longitude, latitude);
+            @Valid @PathVariable long driverId, @RequestParam double longitude, @RequestParam double latitude)
+            throws EntityNotFoundException {
+        driverFacade.updateLocation(driverId, longitude, latitude);
     }
 
-
     @GetMapping
-    public List<DriverDTO> findDrivers(@RequestParam OnlineStatus onlineStatus)
-        throws ConstraintsViolationException, EntityNotFoundException
-    {
-        return DriverMapper.makeDriverDTOList(driverService.find(onlineStatus));
+    public List<DriverDto> findDrivers(@RequestParam OnlineStatus onlineStatus)
+            throws ConstraintsViolationException {
+        return driverFacade.findByOnlineStatus(onlineStatus);
+    }
+
+    @GetMapping("/car")
+    public List<DriverDto> findDriverByCarAttributes(@RequestParam Map<String, String> params) {
+        return driverFacade.findDriverByCarAttributes(getCarDtoRequest(params));
+    }
+
+    private CarDto getCarDtoRequest(Map<String, String> params) {
+        return CarDto.builder()
+                .seatCount(getInteger(params, "seatCount"))
+                .engineType(getString(params, "engineType"))
+                .convertible(getBoolean(params, "convertible"))
+                .build();
     }
 }

@@ -1,4 +1,4 @@
-package com.mytaxi.domainvalue;
+package com.mytaxi.domain;
 
 public enum OnlineStatus
 {

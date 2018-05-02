@@ -1,4 +1,4 @@
-package com.mytaxi.domainvalue;
+package com.mytaxi.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -8,7 +8,7 @@ import javax.persistence.Embeddable;
 import org.springframework.data.geo.Point;
 
 @Embeddable
-public class GeoCoordinate
+public class Coordinate
 {
 
     private static final int MAX_LATITUDE = 90;
@@ -19,7 +19,7 @@ public class GeoCoordinate
     private final Point point;
 
 
-    protected GeoCoordinate()
+    protected Coordinate()
     {
         this.point = null;
     }
@@ -29,11 +29,11 @@ public class GeoCoordinate
      * @param latitude  - y coordinate
      * @param longitude - x coordinate
      */
-    public GeoCoordinate(final double latitude, final double longitude)
+    public Coordinate(final double latitude, final double longitude)
     {
-        Preconditions.checkArgument(latitude >= MIN_LATITUDE, "latitude is lower than min_latitude: " + MIN_LATITUDE);
+        Preconditions.checkArgument(latitude >= MIN_LATITUDE, "latitude is slower than min_latitude: " + MIN_LATITUDE);
         Preconditions.checkArgument(latitude <= MAX_LATITUDE, "latitude is higher than max_latitude: " + MAX_LATITUDE);
-        Preconditions.checkArgument(longitude >= MIN_LONGITUDE, "longitude is lower than min_longitude: " + MIN_LONGITUDE);
+        Preconditions.checkArgument(longitude >= MIN_LONGITUDE, "longitude is slower than min_longitude: " + MIN_LONGITUDE);
         Preconditions.checkArgument(longitude <= MAX_LONGITUDE, "longitude is higher than max_longitude: " + MAX_LONGITUDE);
 
         this.point = new Point(longitude, latitude);
@@ -86,7 +86,7 @@ public class GeoCoordinate
         {
             return false;
         }
-        final GeoCoordinate other = (GeoCoordinate) obj;
+        final Coordinate other = (Coordinate) obj;
         if (this.point == null)
         {
             if (other.point != null)
