@@ -18,9 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mytaxi.repository.DriverDao;
 import com.mytaxi.domain.Car;
 
+
 /**
- * Service to encapsulate the link between DAO and controller and to have
- * business logic for some driver specific things.
+ * Implementation of DriverService Interface
  *
  * @author jeraldfdo
  */

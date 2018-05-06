@@ -7,19 +7,20 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import com.mytaxi.repository.DriverDao;
 
+
 /**
+ * Implementation of UserDetailsService Interface
+ *  
  * @author jeraldfdo
  */
 @Service("userDetailsService")
-public class DefaultUserService implements UserDetailsService
-{
+public class DefaultUserService implements UserDetailsService {
 
     @Autowired
     private DriverDao driverDao;
 
-
-    @Override public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
-    {
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return driverDao.findByUsername(username);
     }
 }

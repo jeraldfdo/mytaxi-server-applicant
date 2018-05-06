@@ -13,12 +13,13 @@ import com.mytaxi.repository.CarDao;
 import com.mytaxi.repository.ManufacturerDao;
 
 /**
+ * Implementation of CarService Interface
+ * 
  * @author jeraldfdo
  */
 @Slf4j
 @Service
-public class DefaultCarService implements CarService
-{
+public class DefaultCarService implements CarService {
 
     @Autowired
     private CarDao carDao;
@@ -26,33 +27,25 @@ public class DefaultCarService implements CarService
     @Autowired
     private ManufacturerDao manufacturerDao;
 
-
     @Override
-    public Car findCarById(final Long carId) throws EntityNotFoundException
-    {
+    public Car findCarById(final Long carId) throws EntityNotFoundException {
         return carCheck(carId);
     }
 
-
     @Override
-    public Iterable<Car> findAllCars()
-    {
+    public Iterable<Car> findAllCars() {
         return carDao.findAll();
     }
 
-
     @Override
-    public Car create(final Car car) throws EntityNotFoundException
-    {
+    public Car create(final Car car) throws EntityNotFoundException {
         car.setManufacturer(manufacturerCheck(car));
         return carDao.save(car);
     }
 
-
     @Override
     @Transactional
-    public void update(final Car car) throws EntityNotFoundException
-    {
+    public void update(final Car car) throws EntityNotFoundException {
         Car updateCar = carCheck(car.getId());
         updateCar.setManufacturer(manufacturerCheck(car));
         updateCar.setConvertible(car.getConvertible());
@@ -62,33 +55,25 @@ public class DefaultCarService implements CarService
         updateCar.setSeatCount(car.getSeatCount());
     }
 
-
     @Override
     @Transactional
-    public void delete(final Long carId) throws EntityNotFoundException
-    {
+    public void delete(final Long carId) throws EntityNotFoundException {
         Car car = carCheck(carId);
         car.setDeleted(Boolean.TRUE);
     }
 
-
-    private Car carCheck(final Long carId) throws EntityNotFoundException
-    {
-       Car car = carDao.findOne(carId);
-        if (null == car)
-        {
+    private Car carCheck(final Long carId) throws EntityNotFoundException {
+        Car car = carDao.findOne(carId);
+        if (null == car) {
             throw new EntityNotFoundException("Could not find car entity with id: " + carId);
         }
         return car;
     }
 
-
-    private Manufacturer manufacturerCheck(final Car car) throws EntityNotFoundException
-    {
+    private Manufacturer manufacturerCheck(final Car car) throws EntityNotFoundException {
         String manufacturerName = car.getManufacturer().getName();
         Manufacturer manufacturer = manufacturerDao.findByName(manufacturerName);
-        if (null == manufacturer)
-        {
+        if (null == manufacturer) {
             throw new EntityNotFoundException("Manufacturer not found with this name: " + manufacturerName);
         }
         return manufacturer;

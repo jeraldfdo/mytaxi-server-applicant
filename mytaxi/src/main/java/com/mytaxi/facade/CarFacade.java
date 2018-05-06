@@ -6,10 +6,11 @@ import com.mytaxi.exception.EntityNotFoundException;
 import java.util.List;
 
 /**
+ * Car Facade Interface
+ * 
  * @author jeraldfdo
  */
-public interface CarFacade
-{
+public interface CarFacade {
 
     CarDto findCarById(final Long carId) throws EntityNotFoundException;
 

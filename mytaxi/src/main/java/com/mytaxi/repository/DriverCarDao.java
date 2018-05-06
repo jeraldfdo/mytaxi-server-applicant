@@ -9,16 +9,18 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 /**
+ * DriverCar(Car-Driver relationship) Data access object which implements default methods of CRUD Repo
+ * 
  * @author jeraldfdo
  */
-public interface DriverCarDao extends CrudRepository<DriverCar, Long>
-{
+public interface DriverCarDao extends CrudRepository<DriverCar, Long> {
+
     DriverCar findByDriverIdAndCarId(final Long driverId, final Long carId);
 
-    @Query("SELECT D, C FROM Car C, Driver D, DriverCar B " +
-           "WHERE B.carId = C.id AND D.id = B.driverId " +
-           "AND (C.seatCount = :#{#carDto.seatCount} OR C.convertible = :#{#carDto.convertible} " +
-           "OR C.engineType = :#{#carDto.engineType})"
+    @Query("SELECT D, C FROM Car C, Driver D, DriverCar B "
+            + "WHERE B.carId = C.id AND D.id = B.driverId "
+            + "AND (C.seatCount = :#{#carDto.seatCount} OR C.convertible = :#{#carDto.convertible} "
+            + "OR C.engineType = :#{#carDto.engineType})"
     )
     List<Object[]> findDriverByCarAttributes(@Param("carDto") final CarDto carDto);
 

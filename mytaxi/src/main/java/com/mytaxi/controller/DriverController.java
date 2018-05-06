@@ -28,12 +28,12 @@ import org.springframework.web.bind.annotation.RestController;
 import static org.apache.commons.collections.MapUtils.*;
 
 /**
- * All operations with a driver will be routed by this controller.
+ * Driver related requests will be handled by this Controller
  *
  * @author jeraldfdo
  */
 @RestController
-@RequestMapping("v1/drivers")
+@RequestMapping("swag/drivers")
 public class DriverController {
 
     @Autowired

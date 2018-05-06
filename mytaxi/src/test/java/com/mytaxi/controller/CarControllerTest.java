@@ -65,7 +65,7 @@ public class CarControllerTest extends AbstractTest
         doReturn(carDto).when(carFacade).findCarById(any(Long.class));
         carController.getCar(1L);
         MvcResult result = mvc
-            .perform(get("/v1/cars/{carId}", 1))
+            .perform(get("/swag/cars/{carId}", 1))
             .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
         final String responseBody = result.getResponse().getContentAsString();
         Assert.assertTrue(responseBody.contains("ABV101"));
@@ -79,7 +79,7 @@ public class CarControllerTest extends AbstractTest
         doReturn(cars).when(carFacade).findAllCars();
         carController.getAllCars();
         MvcResult result = mvc
-            .perform(get("/v1/cars"))
+            .perform(get("/swag/cars"))
             .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
         final String responseBody = result.getResponse().getContentAsString();
         Assert.assertTrue(responseBody.contains("ABV101"));
@@ -94,7 +94,7 @@ public class CarControllerTest extends AbstractTest
         doReturn(carDto).when(carFacade).create(any(CarDto.class));
         carController.createCar(carDto);
         MvcResult result = mvc
-            .perform(post("/v1/cars")
+            .perform(post("/swag/cars")
                 .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                 .content(jsonInString))
             .andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
@@ -111,7 +111,7 @@ public class CarControllerTest extends AbstractTest
         doNothing().when(carFacade).update(any(CarDto.class));
         carController.updateCar(carDto);
         MvcResult result = mvc
-            .perform(put("/v1/cars")
+            .perform(put("/swag/cars")
                 .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                 .content(jsonInString))
             .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
@@ -125,7 +125,7 @@ public class CarControllerTest extends AbstractTest
         doNothing().when(carFacade).delete(any(Long.class));
         carController.deleteCar(1L);
         MvcResult result = mvc
-            .perform(delete("/v1/cars/{carId}", 1L))
+            .perform(delete("/swag/cars/{carId}", 1L))
             .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
         Assert.assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
     }

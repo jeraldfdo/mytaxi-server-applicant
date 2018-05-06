@@ -7,6 +7,8 @@ import javax.persistence.*;
 import java.time.ZonedDateTime;
 
 /**
+ * Car model class 
+ * 
  * @author jeraldfdo
  */
 @Data
@@ -15,8 +17,7 @@ import java.time.ZonedDateTime;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class Car
-{
+public class Car {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,8 +46,7 @@ public class Car
     private Boolean deleted = false;
 
     @OneToOne
-    @JoinColumn(name="manufacturer")
+    @JoinColumn(name = "manufacturer")
     private Manufacturer manufacturer;
-
 
 }

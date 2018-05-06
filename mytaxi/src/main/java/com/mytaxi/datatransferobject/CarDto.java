@@ -4,6 +4,11 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 import lombok.Data;
 
+/**
+ * Data Transfer Object class for Car to deal with transactions related to Car object
+ * 
+ * @author jeraldfdo
+ */
 @Data
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)

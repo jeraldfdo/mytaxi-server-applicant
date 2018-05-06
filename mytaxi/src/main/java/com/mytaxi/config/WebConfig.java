@@ -6,16 +6,15 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
- * This class is responsible for Web configuration.
+ * Web configuration for the interceptors 
+ *
  * @author jeraldfdo
  */
 @Configuration
-public class WebConfig extends WebMvcConfigurerAdapter
-{
+public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Override
-    public void addInterceptors(InterceptorRegistry registry)
-    {
+    public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoggingInterceptor()).addPathPatterns("/**");
     }
 

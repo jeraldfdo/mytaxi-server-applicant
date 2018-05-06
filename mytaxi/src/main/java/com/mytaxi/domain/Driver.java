@@ -11,15 +11,19 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+/**
+ * Driver model class
+ * 
+ * @author jeralfdo
+ */
 @Data
 @Entity
 @Table(
-    name = "driver",
-    uniqueConstraints = @UniqueConstraint(name = "uc_username", columnNames = {"username"})
+        name = "driver",
+        uniqueConstraints = @UniqueConstraint(name = "uc_username", columnNames = {"username"})
 )
 @NoArgsConstructor
-public class Driver implements UserDetails
-{
+public class Driver implements UserDetails {
 
     private static final long serialVersionUID = 1L;
 
@@ -53,9 +57,7 @@ public class Driver implements UserDetails
     @Column(nullable = false)
     private OnlineStatus onlineStatus;
 
-
-    public Driver(String username, String password)
-    {
+    public Driver(String username, String password) {
         this.username = username;
         this.password = password;
         this.deleted = false;
@@ -64,48 +66,38 @@ public class Driver implements UserDetails
         this.onlineStatus = OnlineStatus.OFFLINE;
     }
 
-
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities()
-    {
+    public Collection<? extends GrantedAuthority> getAuthorities() {
         return new ArrayList<>();
     }
 
-
-    @Override public boolean isAccountNonExpired()
-    {
+    @Override
+    public boolean isAccountNonExpired() {
         return true;
     }
-
-
-    @Override public boolean isAccountNonLocked()
-    {
-        return true;
-    }
-
-
-    @Override public boolean isCredentialsNonExpired()
-    {
-        return true;
-    }
-
-
-    @Override public boolean isEnabled()
-    {
-        return true;
-    }
-
 
     @Override
-    public String getPassword()
-    {
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    @Override
+    public String getPassword() {
         return password;
     }
 
-
     @Override
-    public String getUsername()
-    {
+    public String getUsername() {
         return username;
     }
 }

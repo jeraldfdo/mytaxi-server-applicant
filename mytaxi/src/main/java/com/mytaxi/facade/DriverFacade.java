@@ -10,10 +10,11 @@ import com.mytaxi.exception.EntityNotFoundException;
 import java.util.List;
 
 /**
+ * Driver Facade Interface
+ * 
  * @author jeraldfdo
  */
-public interface DriverFacade
-{
+public interface DriverFacade {
 
     DriverDto findByDriverId(Long driverId) throws EntityNotFoundException;
 
@@ -30,6 +31,5 @@ public interface DriverFacade
     void deSelectCarByDriver(Long driverId, Long carId) throws EntityNotFoundException, CarAlreadyInUseException;
 
     List<DriverDto> findDriverByCarAttributes(final CarDto carDto);
-
 
 }

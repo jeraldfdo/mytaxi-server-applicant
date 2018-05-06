@@ -68,7 +68,7 @@ public class DriverControllerTest extends AbstractTest
         doReturn(driverDto).when(driverFacade).selectCarByDriver(any(Long.class), any(Long.class));
         driverController.selectCarByDriver(1L, 1L);
         MvcResult result = mvc
-            .perform(post("/v1/drivers/select")
+            .perform(post("/swag/drivers/select")
                 .param("driverId", "1")
                 .param("carId", "1"))
             .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
@@ -84,7 +84,7 @@ public class DriverControllerTest extends AbstractTest
         doNothing().when(driverFacade).deSelectCarByDriver(any(Long.class), any(Long.class));
         driverController.deSelectCarByDriver(1L, 1L);
         MvcResult result = mvc
-            .perform(post("/v1/drivers/select")
+            .perform(post("/swag/drivers/select")
                 .param("driverId", "1")
                 .param("carId", "1"))
             .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
@@ -99,7 +99,7 @@ public class DriverControllerTest extends AbstractTest
         doReturn(driverDto).when(driverFacade).findByDriverId(any(Long.class));
         driverController.getDriver(1L);
         MvcResult result = mvc
-            .perform(get("/v1/drivers/{driverId}", 1))
+            .perform(get("/swag/drivers/{driverId}", 1))
             .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
         final String responseBody = result.getResponse().getContentAsString();
         Assert.assertTrue(responseBody.contains("test"));
@@ -112,7 +112,7 @@ public class DriverControllerTest extends AbstractTest
         doNothing().when(driverFacade).updateLocation(any(Long.class), any(Double.class), any(Double.class));
         driverController.updateLocation(1L, 99, 99);
         MvcResult result = mvc
-            .perform(put("/v1/drivers/{driverId}", 1)
+            .perform(put("/swag/drivers/{driverId}", 1)
                 .param("longitude", "99").param("latitude", "99"))
             .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
         Assert.assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
@@ -127,7 +127,7 @@ public class DriverControllerTest extends AbstractTest
         doReturn(driverDto).when(driverFacade).create(any(DriverDto.class));
         driverController.createDriver(driverDto);
         MvcResult result = mvc
-            .perform(post("/v1/drivers")
+            .perform(post("/swag/drivers")
                 .contentType(MediaType.APPLICATION_JSON_UTF8).content(jsonInString))
             .andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
         final String responseBody = result.getResponse().getContentAsString();
@@ -145,7 +145,7 @@ public class DriverControllerTest extends AbstractTest
         params.put("seatCount", "3");
         driverController.findDriverByCarAttributes(params);
         MvcResult result = mvc
-            .perform(get("/v1/drivers/car")
+            .perform(get("/swag/drivers/car")
                 .param("seatCount", "3"))
             .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
         final String responseBody = result.getResponse().getContentAsString();
@@ -159,7 +159,7 @@ public class DriverControllerTest extends AbstractTest
         doNothing().when(driverFacade).delete(any(Long.class));
         driverController.deleteDriver(1L);
         MvcResult result = mvc
-            .perform(delete("/v1/drivers/{driverId}", 1))
+            .perform(delete("/swag/drivers/{driverId}", 1))
             .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
         Assert.assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
     }
@@ -172,7 +172,7 @@ public class DriverControllerTest extends AbstractTest
         doReturn(driverDtoList).when(driverFacade).findByOnlineStatus(any(OnlineStatus.class));
         driverController.findDrivers(OnlineStatus.ONLINE);
         MvcResult result = mvc
-            .perform(get("/v1/drivers")
+            .perform(get("/swag/drivers")
                 .param("onlineStatus", OnlineStatus.ONLINE.toString()))
             .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
         final String responseBody = result.getResponse().getContentAsString();

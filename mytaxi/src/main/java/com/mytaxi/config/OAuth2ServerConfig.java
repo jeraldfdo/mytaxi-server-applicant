@@ -11,13 +11,13 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 
 /**
- * This class is responsible for Oauth2 authorization server configuration.
+ * Spring Security : Oauth2 authorization server configuration
+ *
  * @author jeraldfdo
  */
 @Configuration
 @EnableAuthorizationServer
-public class OAuth2ServerConfig extends AuthorizationServerConfigurerAdapter
-{
+public class OAuth2ServerConfig extends AuthorizationServerConfigurerAdapter {
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -26,23 +26,19 @@ public class OAuth2ServerConfig extends AuthorizationServerConfigurerAdapter
     @Qualifier("userDetailsService")
     private UserDetailsService userDetailsService;
 
-
     @Override
-    public void configure(ClientDetailsServiceConfigurer clients) throws Exception
-    {
+    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
-            .withClient("web")
-            .secret("secret")
-            .authorizedGrantTypes("refresh_token", "password", "implicit")
-            .scopes("read", "write");
+                .withClient("web")
+                .secret("secret")
+                .authorizedGrantTypes("refresh_token", "password", "implicit")
+                .scopes("read", "write");
     }
 
-
     @Override
-    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception
-    {
+    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints
-            .authenticationManager(this.authenticationManager)
-            .userDetailsService(userDetailsService);
+                .authenticationManager(this.authenticationManager)
+                .userDetailsService(userDetailsService);
     }
 }

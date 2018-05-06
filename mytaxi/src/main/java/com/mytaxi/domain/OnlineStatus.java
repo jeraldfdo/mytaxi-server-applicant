@@ -1,6 +1,10 @@
 package com.mytaxi.domain;
 
-public enum OnlineStatus
-{
+/**
+ * Enumerator for the Online Status to track a car
+ * 
+ * @author jeraldfo
+ */
+public enum OnlineStatus {
     ONLINE, OFFLINE
 }

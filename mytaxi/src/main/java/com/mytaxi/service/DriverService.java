@@ -6,8 +6,12 @@ import com.mytaxi.exception.ConstraintsViolationException;
 import com.mytaxi.exception.EntityNotFoundException;
 import java.util.List;
 
-public interface DriverService
-{
+/**
+ * Driver Service Interface
+ * 
+ * @author jeraldfdo
+ */
+public interface DriverService {
 
     Driver findByDriverId(Long driverId) throws EntityNotFoundException;
 

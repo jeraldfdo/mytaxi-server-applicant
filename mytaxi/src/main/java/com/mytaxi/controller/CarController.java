@@ -13,11 +13,12 @@ import javax.validation.Valid;
 import java.util.List;
 
 /**
- * All operations with a car will be routed by this controller.
+ * Car related requests will be handled by this Controller
+ * 
  * @author jeraldfdo
  */
 @RestController
-@RequestMapping("v1/cars")
+@RequestMapping("swag/cars")
 public class CarController
 {
 

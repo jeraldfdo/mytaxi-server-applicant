@@ -8,17 +8,17 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 /**
+ * Driver-Car relationship model class. Maps to the driver_car table in the DB
+ * 
  * @author jeraldfdo
  */
-
 @Data
 @Entity
 @Table(name = "driver_car")
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class DriverCar
-{
+public class DriverCar {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,9 +27,7 @@ public class DriverCar
     @Column(name = "driver_id", unique = true)
     private Long driverId;
 
-
     @Column(name = "car_id", unique = true)
     private Long carId;
-
 
 }

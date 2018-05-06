@@ -4,10 +4,11 @@ import com.mytaxi.domain.Car;
 import com.mytaxi.exception.EntityNotFoundException;
 
 /**
+ * Car Service Interface
+ * 
  * @author jeraldfdo
  */
-public interface CarService
-{
+public interface CarService {
 
     Car findCarById(final Long carId) throws EntityNotFoundException;
 
@@ -18,6 +19,5 @@ public interface CarService
     void update(final Car car) throws EntityNotFoundException;
 
     void delete(final Long carId) throws EntityNotFoundException;
-
 
 }

@@ -10,6 +10,8 @@ import javax.persistence.*;
 import java.time.ZonedDateTime;
 
 /**
+ * Manufacturer model class
+ * 
  * @author jeraldfdo
  */
 @Data
@@ -18,8 +20,8 @@ import java.time.ZonedDateTime;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class Manufacturer
-{
+public class Manufacturer {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

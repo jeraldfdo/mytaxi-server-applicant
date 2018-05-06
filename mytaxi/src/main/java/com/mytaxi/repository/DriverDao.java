@@ -7,10 +7,10 @@ import org.springframework.data.repository.CrudRepository;
 
 /**
  * Database Access Object for driver table.
+ *
  * @author jeraldfdo
  */
-public interface DriverDao extends CrudRepository<Driver, Long>
-{
+public interface DriverDao extends CrudRepository<Driver, Long> {
 
     Driver findByUsername(final String username);
 
